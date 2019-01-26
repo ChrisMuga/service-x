@@ -2,12 +2,15 @@ import React from 'react';
 
 //other dependancies
 import axios from 'axios'
+// import swal from 'sweetalert'
+import alertify from 'alertifyjs'
 
 // custom components
 import  InlineButtons from './InlineButtons';
 
 // custom css
 import '../styles/Welcome.css'
+
 
 import logo from '../images/logo.png';
 
@@ -18,7 +21,6 @@ class Welcome extends React.Component {
       this.state = {
                       email_address : '',
                       password      : '',
-                      data          : 'Chris Muga'
                     };
 
       //bind to class
@@ -43,12 +45,17 @@ class Welcome extends React.Component {
         password      : this.state.password
       })
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
+        // swal("Good job!", "You clicked the button!", "success");
+        alertify.success(response.data.email_address)
+       
       })
       .catch(function (error) {
-        console.log(error);
+        
+        alertify.error(String(error))
+        
       });
-      alert('A name was submitted: ' + this.state.email_address);
+      
       event.preventDefault();
     }
     render() {
@@ -64,8 +71,10 @@ class Welcome extends React.Component {
                     <InlineButtons/>
                   </form>
                 </div>
-                
+
               </div>
+
+              
     }
   }
 
